@@ -1,7 +1,3 @@
--- ==========================================
--- init.lua
--- Verify Lua engine and Wormhole binding
--- ==========================================
 SendWorldMessage("|cff00ff00[ALE]|r Lua tunnel online")
 
 -- Server Startup Verification (Console Output)

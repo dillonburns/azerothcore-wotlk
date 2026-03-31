@@ -121,6 +121,18 @@
         "group": "none"
       },
       {
+        "label": "[Util] Generate mod-ale Lua Stubs",
+        "type": "shell",
+        "command": "python3 tools/gen_mod_ale_lua_stubs.py",
+        "group": "none",
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        },
+        "problemMatcher": []
+      },
+      {
         "label": "[Status] Check All Services",
         "type": "shell",
         "command": "bash apps/startup-scripts/usr/check_services_status.sh",

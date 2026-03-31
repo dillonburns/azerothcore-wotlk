@@ -16,6 +16,10 @@
   // connected. This is typically a file mount in .devcontainer/docker-compose.yml
   "workspaceFolder": "/azerothcore",
 
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  },
+
   // Set *default* container specific settings.json values on container create.
   "customizations": {
     "vscode": {
@@ -47,10 +51,11 @@
   "runServices": ["ac-dev-server", "ac-database"],
 
   // Uncomment the next line if you want to keep your containers running after VS Code shuts down.
-  // "shutdownAction": "none",
+  "shutdownAction": "stopCompose",
 
   // Uncomment the next line to run commands after the container is created - for example installing curl.
   // "postCreateCommand": "apt-get update && apt-get install -y curl",
+  "postStartCommand": "docker compose start ac-database && docker compose exec -T ac-database bash -c 'mysqladmin ping -u root -ppassword --silent --wait=30'",
 
   // Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "root"

@@ -2,13 +2,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Linux/Docker debug",
+            "name": "Launch Worldserver (Debug)",
             "type": "cppdbg",
             "request": "launch",
             "program": "/azerothcore/env/dist/bin/worldserver",
-            "cwd": "/azerothcore",
+            "cwd": "${workspaceFolder}/env/dist/bin",
             "args": [],
-            "environment": [],
+            // TODO: GET FROM .ENV
+            // "environment": [],
+            "environment": [
+                { "name": "AC_DATA_DIR", "value": "/azerothcore/env/dist/data" },
+                { "name": "AC_LOGS_DIR", "value": "/azerothcore/env/dist/logs" },
+                { "name": "AC_LOGIN_DATABASE_INFO", "value": "ac-database;3306;root;password;acore_auth" },
+                { "name": "AC_WORLD_DATABASE_INFO", "value": "ac-database;3306;root;password;acore_world" },
+                { "name": "AC_CHARACTER_DATABASE_INFO", "value": "ac-database;3306;root;password;acore_characters" }
+            ],
             "externalConsole": false,
             "sourceFileMap": {
                 "/azerothcore": "${workspaceFolder}"
@@ -23,45 +31,6 @@
                         "ignoreFailures": false
                     }
                 ]
-            }
-        },
-        {
-            "name": "(docker run) Pipe Launch",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "/azerothcore/env/dist/bin/worldserver",
-            "cwd": "/azerothcore",
-            "args": [],
-            "environment": [],
-            "externalConsole": true,
-            "pipeTransport": {
-                "debuggerPath": "/usr/bin/gdb",
-                "pipeProgram": "docker compose",
-                "pipeArgs": [
-                    "exec", "-T", "ac-worldserver", "sh", "-c"
-                ],
-                "pipeCwd": "${workspaceFolder}"
-            },
-            "sourceFileMap": {
-                "/azerothcore": "${workspaceFolder}"
-            },
-            "linux": {
-                "MIMode": "gdb",
-                "miDebuggerPath": "/usr/bin/gdb",
-                "setupCommands": [
-                    {
-                        "description": "Enable pretty-printing for gdb",
-                        "text": "-enable-pretty-printing",
-                        "ignoreFailures": false
-                    }
-                ]
-            },
-            "osx": {
-                "MIMode": "lldb"
-            },
-            "windows": {
-                "MIMode": "gdb",
-                "miDebuggerPath": "C:\\MinGw\\bin\\gdb.exe"
             }
         }
     ]

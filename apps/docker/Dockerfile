@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.4
+
 ARG UBUNTU_VERSION=22.04 # lts
 
 # This target lays out the general directory skeleton for AzerothCore,

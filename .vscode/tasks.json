@@ -2,93 +2,133 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "AzerothCore: Dashboard",
+        "label": "[DB] Wake Database",
         "type": "shell",
-        "command": "./acore.sh",
+        "command": "docker compose start ac-database",
         "group": "none",
         "presentation": {
           "reveal": "always",
-          "panel": "new"
-        },
-        "problemMatcher": []
+          "panel": "shared",
+          "clear": true
+        }
       },
       {
-        "label": "AzerothCore: Download client-data",
+        "label": "[DB] Hibernate Database",
         "type": "shell",
-        "command": "./acore.sh client-data",
+        "command": "docker compose stop ac-database",
         "group": "none",
         "presentation": {
           "reveal": "always",
-          "panel": "new"
-        },
-        "problemMatcher": []
+          "panel": "shared",
+          "clear": true
+        }
       },
       {
-        "label": "AzerothCore: Clean build",
+        "label": "[DB] Hard Reset (Tear Down Network)",
         "type": "shell",
-        "command": "./acore.sh compiler clean",
-        "group": "build",
+        "command": "docker compose down",
+        "group": "none",
         "presentation": {
           "reveal": "always",
-          "panel": "new"
+          "panel": "shared"
+        }
+      },
+      {
+        "label": "[Run] Authserver (Native)",
+        "type": "shell",
+        "command": "./env/dist/bin/authserver",
+        "group": "none",
+        "presentation": {
+          "reveal": "always",
+          "panel": "new",
+          "clear": true
         },
         "problemMatcher": []
       },
       {
-        "label": "AzerothCore: Build",
+        "label": "[Run] Worldserver (Native)",
         "type": "shell",
-        "command": "./acore.sh compiler build",
+        "command": "./env/dist/bin/worldserver",
+        "group": "none",
+        "presentation": {
+          "reveal": "always",
+          "panel": "new",
+          "clear": true
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "[Build] Compile Core (Debug)",
+        "type": "shell",
+        "command": "CTYPE=Debug MTHREADS=4 ./acore.sh compiler build",
         "group": {
           "kind": "build",
           "isDefault": true
         },
         "presentation": {
           "reveal": "always",
-          "panel": "new"
-        },
-        "problemMatcher": []
+          "panel": "shared",
+          "clear": true
+        }
       },
       {
-        "label": "AzerothCore: Check codestyle cpp",
+        "label": "[Build] Recompile Core (Debug)",
+        "type": "shell",
+        "command": "CTYPE=Debug MTHREADS=4 ./acore.sh compiler clean",
+        "group": "build",
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared"
+        }
+      },
+      {
+        "label": "[Util] Azerothcore Dashboard",
+        "type": "shell",
+        "command": "./acore.sh",
+        "group": "none",
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
+      },
+      {
+        "label": "[Init] Download Client Data",
+        "type": "shell",
+        "command": "docker compose up ac-client-data-init",
+        "group": "none"
+      },
+      {
+        "label": "[Init] Import DB",
+        "type": "shell",
+        "command": "docker compose up ac-db-import",
+        "group": "none",
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "[Util] Check Codestyle (C++)",
         "type": "shell",
         "command": "python apps/codestyle/codestyle-cpp.py",
-        "group": "none",
-        "presentation": {
-          "reveal": "always",
-          "panel": "new"
-        },
-        "problemMatcher": []
+        "group": "none"
       },
       {
-        "label": "AzerothCore: Check codestyle sql",
+        "label": "[Util] Check Codestyle (SQL)",
         "type": "shell",
         "command": "python apps/codestyle/codestyle-sql.py",
-        "group": "none",
-        "presentation": {
-          "reveal": "always",
-          "panel": "new"
-        },
-        "problemMatcher": []
+        "group": "none"
       },
       {
-        "label": "AzerothCore: Run authserver (restarter)",
+        "label": "[Status] Check All Services",
         "type": "shell",
-        "command": "./acore.sh run-authserver",
+        "command": "bash apps/startup-scripts/usr/check_services_status.sh",
         "group": "none",
         "presentation": {
           "reveal": "always",
-          "panel": "new"
-        },
-        "problemMatcher": []
-      },
-      {
-        "label": "AzerothCore: Run worldserver (restarter)",
-        "type": "shell",
-        "command": "./acore.sh run-worldserver",
-        "group": "none",
-        "presentation": {
-          "reveal": "always",
-          "panel": "new"
+          "panel": "shared",
+          "clear": true
         },
         "problemMatcher": []
       }

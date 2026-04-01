@@ -111,13 +111,13 @@
       {
         "label": "[Util] Check Codestyle (C++)",
         "type": "shell",
-        "command": "python apps/codestyle/codestyle-cpp.py",
+        "command": "python3 apps/codestyle/codestyle-cpp.py",
         "group": "none"
       },
       {
         "label": "[Util] Check Codestyle (SQL)",
         "type": "shell",
-        "command": "python apps/codestyle/codestyle-sql.py",
+        "command": "python3 apps/codestyle/codestyle-sql.py",
         "group": "none"
       },
       {

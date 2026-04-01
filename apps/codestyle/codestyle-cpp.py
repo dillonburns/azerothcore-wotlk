@@ -57,7 +57,7 @@ def parsing_file(directory: str) -> None:
         print("\nPlease fix the codestyle issues above.")
         sys.exit(1)
     else:
-        print(f"\nEverything looks good")
+        print(f"\n✅Everything looks good")
 
 # Codestyle patterns checking for multiple blank lines
 def multiple_blank_lines_check(file: io, file_path: str) -> None:

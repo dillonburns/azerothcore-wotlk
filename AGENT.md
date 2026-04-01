@@ -1,6 +1,6 @@
 # Hello AI Agent
 
-This file provides guidance to AI coding tools when working with code in the AzerothCore codebase in this repository. (Not including any code in /modules)
+This file provides guidance to AI coding tools when working with code in the AzerothCore codebase in this repository. (Not including any code in /modules/mod-\*)
 
 ## Project Overview
 
@@ -50,6 +50,7 @@ Tests use Google Test and live in `src/test/`. The test binary links against the
 ## Architecture
 
 ### Two server executables
+
 - **authserver** (`src/server/apps/authserver/`): Handles authentication and realm selection (port 3724)
 - **worldserver** (`src/server/apps/worldserver/`): Main game server handling all gameplay (port 8085)
 
@@ -75,6 +76,7 @@ Tests use Google Test and live in `src/test/`. The test binary links against the
 ### Scripting system
 
 Scripts follow a registration pattern:
+
 1. Define a class inheriting from `SpellScript`, `CreatureScript`, etc.
 2. Implement an `AddSC_*()` function that calls `RegisterSpellScript(ClassName)` (or similar)
 3. The `AddSC_*()` is declared and called from the regional `*_script_loader.cpp`
@@ -82,6 +84,7 @@ Scripts follow a registration pattern:
 5. Spell script files are organized by class: `spell_dk.cpp`, `spell_mage.cpp`, `spell_generic.cpp`, etc.
 
 ### Three databases
+
 - **acore_auth** - Accounts, realm list, bans (`data/sql/base/db_auth/`)
 - **acore_characters** - Character data, inventories, progress (`data/sql/base/db_characters/`)
 - **acore_world** - Game content: creatures, items, quests, spells, loot (`data/sql/base/db_world/`)
@@ -101,6 +104,7 @@ Bundled in `deps/`: boost, MySQL client, OpenSSL, zlib, recastnavigation (pathfi
 ## Commit Message Format
 
 Uses Conventional Commits:
+
 ```
 Type(Scope/Subscope): Short description (max 50 chars)
 ```

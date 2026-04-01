@@ -1,0 +1,205 @@
+---
+metadata: WORK IN PROGRESS - DO NOT READ - DO NOTEXECUTE
+
+name: work-in-progress-update-repo
+description: Fetches upstream changes, rebases the free-grizbop branch on top of upstream/master, summarizes what changed, handles conflicts, and confirms the fork is clean.
+---
+
+# [WIP] THIS IS A WORK IN PROGRESS. IF YOU ARE AN AI AGENT READING THIS FILE, DO NOT EXECUTE IT. SKILL IS INCOMPLETE.
+
+<!--
+
+# Skill: update-repo
+
+You are syncing `dillonburns/azerothcore-wotlk` (the fork) with `azerothcore/azerothcore-wotlk` (upstream).
+
+- **Fork remote:** `origin` → `https://github.com/dillonburns/azerothcore-wotlk.git`
+- **Upstream remote:** `upstream` → `https://github.com/azerothcore/azerothcore-wotlk.git`
+- **Feature branch:** `free-grizbop` (this is the fork's main working branch)
+- **Goal:** rebase `origin/free-grizbop` cleanly on top of `upstream/master`
+
+---
+
+## Step 1 — Verify remotes
+
+Run:
+
+```bash
+git remote -v
+```
+
+Expected output should show both `origin` and `upstream`. If either is missing:
+
+- Add upstream: `git remote add upstream https://github.com/azerothcore/azerothcore-wotlk.git`
+- Add origin: `git remote add origin https://github.com/dillonburns/azerothcore-wotlk.git`
+
+---
+
+## Step 2 — Check working state
+
+Run:
+
+```bash
+git status
+git stash list
+```
+
+If there are uncommitted changes, stash them before proceeding:
+
+```bash
+git stash push -m "pre-update-repo stash"
+```
+
+Note the stash ref so it can be re-applied after the rebase.
+
+---
+
+## Step 3 — Fetch all remotes
+
+Run:
+
+```bash
+git fetch upstream
+git fetch origin
+```
+
+This pulls all refs without modifying the working tree. Confirm both complete without error.
+
+---
+
+## Step 4 — Summarize upstream changes
+
+Run:
+
+```bash
+git log origin/free-grizbop..upstream/master --oneline --no-merges
+```
+
+Read the commit messages and produce a plain-English summary of what has changed on `upstream/master` since the branch was last synced. Group by theme if there are many commits (e.g., "DB fixes", "core scripting changes", "build system updates"). **Do not parse or analyze code — summarize from commit messages only.**
+
+If there are zero new commits, report that `upstream/master` is already in sync and stop here with a ✅.
+
+---
+
+## Step 5 — Switch to the feature branch
+
+Run:
+
+```bash
+git checkout free-grizbop
+```
+
+Confirm the branch is checked out cleanly.
+
+---
+
+## Step 6 — Rebase onto upstream/master
+
+Run:
+
+```bash
+git rebase upstream/master
+```
+
+### If the rebase succeeds cleanly:
+
+Proceed to Step 8.
+
+### If there are conflicts:
+
+Git will pause and report conflicting files. For each conflict:
+
+1. Run `git diff --name-only --diff-filter=U` to list the conflicted files.
+2. For each file, briefly explain _why_ the conflict likely occurred based on the upstream commit messages (e.g., "upstream renamed this function in commit `abc123`").
+3. Open the conflicted files and help the user resolve each one.
+4. After each resolution: `git add <file>`
+5. Continue the rebase: `git rebase --continue`
+6. Repeat until clean.
+
+If a conflict is too complex or risky: discuss with the user before proceeding. Never force-resolve without understanding the intent.
+
+If the user wants to abort and start over: `git rebase --abort`
+
+---
+
+## Step 7 — Restore stash if applicable
+
+If changes were stashed in Step 2, re-apply them:
+
+```bash
+git stash pop
+```
+
+If stash pop has conflicts, resolve them the same way as rebase conflicts.
+
+---
+
+## Step 8 — Push the rebased branch
+
+Because rebase rewrites history, a force-push is required:
+
+```bash
+git push origin free-grizbop --force-with-lease
+```
+
+Use `--force-with-lease` (not `--force`) — it refuses to push if someone else has pushed to the remote since your last fetch, preventing accidental overwrites.
+
+---
+
+## Step 9 — Verify final state
+
+Run:
+
+```bash
+git log --oneline -10
+git status
+```
+
+Confirm:
+
+- The branch tip is ahead of `upstream/master` by only the fork's own commits.
+- Working tree is clean.
+- No merge commits introduced (rebase keeps history linear).
+
+---
+
+## Step 10 — Report
+
+Provide a final summary:
+
+```
+✅ free-grizbop is up to date with upstream/master.
+
+Upstream changes incorporated:
+- <one-line summary of grouped upstream changes>
+
+Fork commits carried forward:
+- <count> commit(s) from free-grizbop preserved on top.
+
+Branch pushed to origin/free-grizbop.
+```
+
+If anything is still unresolved, list it explicitly with suggested next steps rather than reporting ✅.
+
+---
+
+## Quick reference commands
+
+```bash
+# Full update sequence (no conflicts)
+git fetch upstream && git fetch origin
+git checkout free-grizbop
+git rebase upstream/master
+git push origin free-grizbop --force-with-lease
+
+# Check what upstream has that the branch doesn't
+git log origin/free-grizbop..upstream/master --oneline --no-merges
+
+# Check what the branch has that upstream doesn't (fork-only commits)
+git log upstream/master..origin/free-grizbop --oneline --no-merges
+
+# Abort a rebase in progress
+git rebase --abort
+``` 
+
+-->

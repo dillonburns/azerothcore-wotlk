@@ -129,5 +129,11 @@
   "Lua.workspace.library": [
     "${workspaceFolder}/lua_scripts",
     "${workspaceFolder}/tools/mod_ale_api.lua"
-  ]
+  ],
+  "C_Cpp.files.exclude": {
+    "**/.git": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/env": true
+}
 }

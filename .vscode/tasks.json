@@ -135,7 +135,7 @@
       {
         "label": "[Status] Check All Services",
         "type": "shell",
-        "command": "bash apps/startup-scripts/usr/check_services_status.sh",
+        "command": "bash tools/check_services_status.sh",
         "group": "none",
         "presentation": {
           "reveal": "always",
